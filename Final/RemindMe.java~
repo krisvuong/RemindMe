@@ -1,1 +1,39 @@
- 
+ /* Names: Kris, Michelle L, Michelle M, Teja
+  * Date: May 2021
+  * Teacher: Mr. Ho
+  * Description: Final Summative Project
+  */
+import java.time.LocalDate;
+
+class RemindMe{
+  
+  public static void main(String[] args){
+    //System.out.println("This assignment is due in " + countdown("25/05/21", "03/06/23"));
+  }
+  
+  
+   
+  
+  //add methods here
+  
+  
+  public static int countdown(String currentDate, String dueDate){
+    
+    //variables
+    String currentYear;
+    String dueYear;
+    int differenceYear;
+    
+    //format dates
+    currentDate = currentDate.replaceAll(" ","");
+    dueDate = dueDate.replaceAll(" ","");
+    
+    //Find difference in years
+    currentYear = currentDate.substring(6,8);
+    dueYear = dueDate.substring(6,8);
+    differenceYear = Integer.parseInt(dueYear) - Integer.parseInt(currentYear);
+    
+    //System.out.println(currentDate + " " + dueDate);
+    return differenceYear;
+  }
+}
