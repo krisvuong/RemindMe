@@ -9,8 +9,13 @@ import java.text.*;
 class RemindMe{
   
   public static void main(String[] args){
-    //System.out.println("This assignment is due in " + countdown("2021/08/24"));
-    countdown("hi");
+    
+    //temp variables
+    String taskName = "[assignment name]";
+    String dueDate = "2021/05/25";  //(YYYY/MM/DD)
+    String dueTime = "23:59";       //(HH:mm) - 24h clock
+    
+    System.out.println(countdown(taskName, dueDate, dueTime));
   }
   
   
@@ -19,42 +24,97 @@ class RemindMe{
   //add methods here
   
   
-  public static int countdown(String dueDate){
+  public static String countdown(String taskName, String dueDate, String dueTime){
     
-    //variables
-    String currentYear;
-    String dueYear;
-    int differenceYear;
+    //Declare necessary variables
+    long totalSec;  //used for calculations
     
-    String currentDate;
-    Date tomorrow = new Date();
-      
-    //get current date
+    long diffYear;  //remaining number of years/months/days... until due date
+    long diffMonth;
+    long diffDay;
+    long diffHour;
+    long diffMin;
+    long diffSec;
+    
+    String returnMsg = "";
+    
+    Date due = new Date();  //initialize dates
+    String niceDue;  //final formatted due date
+    
+    //Create date and time formats (templates)
+    SimpleDateFormat simple = new SimpleDateFormat ("yyyy/MM/dd/HH:mm");
+    SimpleDateFormat pretty = new SimpleDateFormat ("EEEE MMM d, y, h:mm a");  //ex. "Tuesday May 25, 2021, 9:39 PM"
+    
+    //Get current date
     Date today = new Date();
-    SimpleDateFormat form = new SimpleDateFormat ("yyyy/MM/dd");  //edit format
     
-    //today = form.format(today);
-    
+    //Format due date
     try{
-      tomorrow = form.parse("2021/05/26");
-      
-      System.out.println(today.before(tomorrow));
+      due = simple.parse(dueDate + "/" + dueTime);
     }
-      catch(Exception e){
+    catch(Exception e){
     }
-      
-      
-      /*
-    //format due date
-    dueDate = dueDate.replaceAll(" ","");
+    niceDue = pretty.format(due); 
+    //add negative time
     
-    //Find difference in years
-    currentYear = currentDate.substring(6,8);
-    dueYear = dueDate.substring(6,8);
-    differenceYear = Integer.parseInt(dueYear) - Integer.parseInt(currentYear);
+    //Total seconds until due date and time
+    totalSec = (due.getTime() - today.getTime())/1000;  //method gives milliseconds since July 1 1970 (divide by 1000 to get seconds)
     
-    //System.out.println(currentDate + " " + dueDate);
-    */
-    return 1;
+    //Find number of years/months/days... until due date and time
+    diffYear = totalSec/31536000;
+    diffMonth = (totalSec - (diffYear*31536000))/2635200;
+    diffDay = (totalSec-(diffYear*31536000)-(diffMonth*2635200))/86400;
+    diffHour = (totalSec-(diffYear*31536000)-(diffMonth*2635200)-(diffDay*86400))/3600;
+    diffMin = (totalSec-(diffYear*31536000)-(diffMonth*2635200)-(diffDay*86400)-(diffHour*3600))/60;
+    diffSec = totalSec-(diffYear*31536000)-(diffMonth*2635200)-(diffDay*86400)-(diffHour*3600)-(diffMin*60);
+    
+    
+    //Create return String
+    if(diffYear>0){
+      returnMsg += diffYear + " year";
+      if(diffYear>1){
+        returnMsg += "s";
+      }
+      returnMsg += ", ";
+    }
+    if(diffMonth>0){
+      returnMsg += diffMonth + " month";
+      if(diffMonth>1){
+        returnMsg += "s";
+      }
+      returnMsg += ", ";
+    }
+    if(diffDay>0){
+      returnMsg += diffDay + " day";
+      if(diffDay>1){
+        returnMsg += "s";
+      }
+      returnMsg += ", ";
+    }
+    if(diffHour>0){
+      returnMsg += diffHour + " hour";
+      if(diffHour>1){
+        returnMsg += "s";
+      }
+      returnMsg += ", ";
+    }
+    if(diffMin>0){
+      returnMsg += diffMin + " minute";
+      if(diffMin>1){
+        returnMsg += "s";
+      }
+      returnMsg += ", ";
+    }
+    if(diffSec>0){
+      returnMsg += diffSec + " second";
+      if(diffSec>1){
+        returnMsg += "s";
+      }
+      returnMsg += ", ";
+    }
+    returnMsg += "until " + taskName + " is due on " + niceDue;
+    
+    //Return countdown message
+    return returnMsg;
   }
 }
