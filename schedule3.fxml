@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneControllerr">
+   <children>
+      <Label layoutX="216.0" layoutY="52.0" text="SCHEDULE YOUR ASSIGNMENT" />
+      <Button layoutX="182.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchScene1" text="Return" />
+      <Label layoutX="74.0" layoutY="121.0" text="Name of the Assignment:" />
+      <TextField fx:id="txtField" layoutX="252.0" layoutY="117.0" prefHeight="26.0" prefWidth="174.0" promptText="Enter the name of your assignment" />
+      <DatePicker fx:id="datePicker" layoutX="251.0" layoutY="178.0" onAction="#selectDate" promptText="Select Date" showWeekNumbers="true" />
+      <Label layoutX="180.0" layoutY="182.0" text="Date:" />
+      <Button layoutX="332.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchScene1" text="Submit" />
+      <Label layoutX="180.0" layoutY="253.0" text="Time:" />
+      <Label fx:id="lbDate" layoutX="74.0" layoutY="183.0" />
+      <Label fx:id="label" layoutX="90.0" layoutY="254.0" />
+      <ComboBox fx:id="timePick" layoutX="252.0" layoutY="248.0" onAction="#selectTime" onMouseClicked="#clickBox" prefHeight="26.0" prefWidth="174.0" />
+   </children>
+</AnchorPane>
