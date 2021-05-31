@@ -1,8 +1,10 @@
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.scene.Group;
 
 
@@ -63,6 +66,25 @@ public class SceneController{
     @FXML
     private TextField txtField;
 
+
+    @FXML
+    private DatePicker startDay;
+
+    @FXML
+    private DatePicker endDay;
+
+    @FXML
+    private Button submitNewAssignment;
+
+    @FXML
+    private Text newAssignmentError;
+
+    @FXML 
+    private Text newAssignmentSuccess;
+
+    //Other necessary variables
+    int daysToStart;
+    int daysAssignmentDuration;
 
     // Main Scene Functions
     public void switchScene1(ActionEvent event) throws IOException {
@@ -225,6 +247,55 @@ public class SceneController{
         if (result.isPresent() && result.get() == ButtonType.OK) {
         }
     }
+
+
+
+    //New Assignment Option - validation and return duration
+    public void assignmentDuration(ActionEvent event) throws IOException {
+        //Get user-inputted start and end dates
+        String start = startDay.getValue().toString();
+        String end = endDay.getValue().toString();
+
+        //Declare necessary variables
+        long daysTilStart;  //days until assignment start date
+        long daysDuration;  //duration of assignment (in days)
+        String returnMsg = "";
+        Date startDate = new Date();  //initialize start date
+        Date endDate = new Date();  //initialize end date
+        Date today = new Date();  //get present date
+
+        //Create date and time format (template)
+        SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
+
+        //Parse String input dates into Date types
+        try{
+            startDate = simple.parse(start);
+            endDate = simple.parse(end);
+        }
+        catch(Exception e){
+        }
+
+        //Calculate total days until start, and duration of assignment
+        daysTilStart = (startDate.getTime() - today.getTime())/86400000;  //method gives milliseconds since July 1 1970 (divide by 86400000 to get days)
+        daysDuration = (endDate.getTime() - startDate.getTime())/86400000;
+
+        //Update values
+        daysToStart = (int) daysTilStart;
+        daysAssignmentDuration = (int) daysDuration;
+
+        //Print error if end date comes before start date
+        if(daysDuration<0){
+            newAssignmentSuccess.setText("");
+            newAssignmentError.setText("The end date must come after the start date.");
+        }
+        //Print success message
+        else{
+            newAssignmentError.setText("");
+            newAssignmentSuccess.setText("Saved succesfully!");
+        }
+    }
+
+
 
     //Gant Chart Functions
     /*private Button weekslb(String text) {
