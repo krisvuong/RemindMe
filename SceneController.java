@@ -292,6 +292,7 @@ public class SceneController{
         else{
             newAssignmentError.setText("");
             newAssignmentSuccess.setText("Saved succesfully!");
+            //call method to write assignment into csv
         }
     }
 
