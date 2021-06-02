@@ -6,9 +6,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Font?>   
 <?import javafx.scene.text.Text?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2c2f33;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneController">
    <children>
@@ -36,10 +35,25 @@
       </Label>
       <DatePicker fx:id="startDay" layoutX="328.0" layoutY="179.0" promptText="Select start date" />
       <DatePicker fx:id="endDay" layoutX="328.0" layoutY="236.0" promptText="Select end date" />
-      <TextField layoutX="328.0" layoutY="122.0" prefHeight="26.0" prefWidth="174.0" promptText="Enter name of your assignment" />
+      <TextField fx:id="assignmentName" layoutX="328.0" layoutY="122.0" prefHeight="26.0" prefWidth="174.0" promptText="Type your assignment name" />
       <Pane layoutX="582.0" layoutY="23.0" prefHeight="386.0" prefWidth="4.0" style="-fx-background-color: #99aab5;" />
       <Pane layoutX="328.0" layoutY="397.0" prefHeight="2.0" prefWidth="272.0" style="-fx-background-color: white;" />
-      <Text fx:id="newAssignmentError" fill="RED" layoutX="328.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="185.5" />
-      <Text fx:id="newAssignmentSuccess" fill="#63ff78" layoutX="328.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="185.5" />
+      <Text fx:id="newAssignmentError" fill="RED" layoutX="328.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="185.5" />
+      <Text fx:id="newAssignmentSuccess" fill="#63ff78" layoutX="328.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.0" />
+      <Text fx:id="astrix1" fill="RED" layoutX="509.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="astrix2" fill="RED" layoutX="519.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="astrix3" fill="RED" layoutX="519.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

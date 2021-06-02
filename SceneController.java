@@ -82,6 +82,18 @@ public class SceneController{
     @FXML 
     private Text newAssignmentSuccess;
 
+    @FXML
+    private TextField assignmentName;
+
+    @FXML
+    private Text astrix1;
+
+    @FXML
+    private Text astrix2;
+
+    @FXML
+    private Text astrix3;
+
     //Other necessary variables
     int daysToStart;
     int daysAssignmentDuration;
@@ -252,50 +264,92 @@ public class SceneController{
 
     //New Assignment Option - validation and return duration
     public void assignmentDuration(ActionEvent event) throws IOException {
-        //Get user-inputted start and end dates
-        String start = startDay.getValue().toString();
-        String end = endDay.getValue().toString();
+        //Reset error/success messages
+        astrix1.setText("");
+        astrix2.setText("");
+        astrix3.setText("");
+        newAssignmentError.setText("");
+        newAssignmentSuccess.setText("");
 
-        //Declare necessary variables
-        long daysTilStart;  //days until assignment start date
-        long daysDuration;  //duration of assignment (in days)
-        String returnMsg = "";
-        Date startDate = new Date();  //initialize start date
-        Date endDate = new Date();  //initialize end date
-        Date today = new Date();  //get present date
-
-        //Create date and time format (template)
-        SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
-
-        //Parse String input dates into Date types
-        try{
-            startDate = simple.parse(start);
-            endDate = simple.parse(end);
+        //Check for empty fields
+        if(assignmentName.getText().equals("") || startDay.getValue() == null || endDay.getValue() == null){
+            missingInfo();
         }
-        catch(Exception e){
-        }
-
-        //Calculate total days until start, and duration of assignment
-        daysTilStart = (startDate.getTime() - today.getTime())/86400000;  //method gives milliseconds since July 1 1970 (divide by 86400000 to get days)
-        daysDuration = (endDate.getTime() - startDate.getTime())/86400000;
-
-        //Update values
-        daysToStart = (int) daysTilStart;
-        daysAssignmentDuration = (int) daysDuration;
-
-        //Print error if end date comes before start date
-        if(daysDuration<0){
-            newAssignmentSuccess.setText("");
-            newAssignmentError.setText("The end date must come after the start date.");
-        }
-        //Print success message
+        
         else{
-            newAssignmentError.setText("");
-            newAssignmentSuccess.setText("Saved succesfully!");
-            //call method to write assignment into csv
+            //Get user-inputted start and end dates
+            String start = startDay.getValue().toString();
+            String end = endDay.getValue().toString();
+            
+            //Declare necessary variables
+            long daysTilStart;  //days until assignment start date
+            long daysDuration;  //duration of assignment (in days)
+            String returnMsg = "";
+            Date startDate = new Date();  //initialize start date
+            Date endDate = new Date();  //initialize end date
+            Date today = new Date();  //get present date
+
+            //Create date and time format (template)
+            SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
+
+            //Parse String input dates into Date types
+            try{
+                startDate = simple.parse(start);
+                endDate = simple.parse(end);
+            }
+            catch(Exception e){
+            }
+
+            //Calculate total days until start, and duration of assignment
+            daysDuration = calculateDuration(endDate, startDate);
+            daysTilStart = calculateTilToday(startDate, today);
+
+            //Print error if end date comes before start date
+            if(daysDuration<0){
+                newAssignmentError.setText("The end date must come after the start date.");
+            }
+            else if(today.after(endDate)){
+                newAssignmentError.setText("This assignment has already passed!");
+            }
+            //Print success message
+            else{
+                newAssignmentError.setText("");
+                newAssignmentSuccess.setText("Saved succesfully!");
+                
+                ///////////////////////////////////////////////////////////////////
+                ////// CALL METHOD TO WRITE INFO INTO CSV  ////////////////////////
+            }
         }
     }
 
+    //Check for missing fields in newAssignment (option 2)
+    private void missingInfo() {
+        newAssignmentError.setText("Please enter information in all fields");
+        
+        if(assignmentName.getText().equals("")){
+            astrix1.setText("*");
+        }
+        if(startDay.getValue() == null){
+            astrix2.setText("*");
+        }
+        if(endDay.getValue() == null){
+            astrix3.setText("*");
+        }
+    }
+
+    //Calculate duration of assignment (option 2)
+    private int calculateDuration(Date endDate, Date startDate){
+        long daysDuration = (endDate.getTime() - startDate.getTime())/86400000;  //.getTime() gives milliseconds since July 1 1970 (divide to get # of days)
+        int days = (int)daysDuration;
+        return days;
+    }
+
+    //Calculate days until the assignment starts (option 2)
+    private int calculateTilToday (Date startDate, Date today){
+        long daysTilToday = (startDate.getTime() - today.getTime())/86400000;
+        int days = (int)daysTilToday;
+        return days;
+    }
 
 
     //Gant Chart Functions
