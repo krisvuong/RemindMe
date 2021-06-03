@@ -1,4 +1,10 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -7,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JOptionPane;
@@ -229,6 +236,7 @@ public class SceneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        createBars();
     }
 
     public void switchScene4(ActionEvent event) throws IOException {
@@ -405,16 +413,9 @@ public class SceneController {
             Date endDate = new Date();  //initialize end date
             Date today = new Date();  //get present date
 
-            //Create date and time format (template)
-            SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
-
-            //Parse String input dates into Date types
-            try{
-                startDate = simple.parse(start);
-                endDate = simple.parse(end);
-            }
-            catch(Exception e){
-            }
+            //Parse string dates to Date types
+            startDate = string2Date(start);
+            endDate = string2Date(end);
 
             //Calculate duration of assignment and days until start
             daysDuration = calculateDuration(endDate, startDate);
@@ -433,6 +434,22 @@ public class SceneController {
             }
         }
     }
+
+    ////////////
+    //  ADD DOCSTIRNG   ///////
+    private Date string2Date(String strDate){
+        SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
+        Date date = new Date();
+        //Parse String input dates into Date types
+        try{
+            date = simple.parse(strDate);
+        }
+        catch(Exception e){
+        }
+        return date;
+    }
+
+
     /* 
      * Prints error message and asterisks for empty fields (in option 2)
      * 
@@ -503,7 +520,7 @@ public class SceneController {
     private void assignmentSuccess(){
         newAssignmentSuccess.setText("Saved succesfully!");
         
-        Reminder remind1 = new Reminder();
+        Assignment assign1 = new Assignment();
         Calendar begin = Calendar.getInstance();
         Calendar due = Calendar.getInstance();
         begin.clear();
@@ -511,13 +528,45 @@ public class SceneController {
         begin.set(startDay.getValue().getYear(), startDay.getValue().getMonthValue() - 1, startDay.getValue().getDayOfMonth());
         due.set(endDay.getValue().getYear(), endDay.getValue().getMonthValue() - 1, endDay.getValue().getDayOfMonth());
         
-        remind1.setName(assignmentName.getText());
-        remind1.setStartDate(begin);
-        remind1.setEndDate(due);
-        remind1.setTime("23:59");
-        FileHandler.writeToCSV(remind1);
+        assign1.setName(assignmentName.getText());
+        assign1.setStartDate(begin);
+        assign1.setEndDate(due);
+        assign1.setTime("23:59");
+        FileHandler.writeToCSV(assign1);
     }
 
+
+    //GANTT CHARTTT
+    private void createBars() throws IOException{
+        Scanner reader = new Scanner(new File(".\\assignment.csv"));
+         
+        //Set delimiter used in csv
+        //reader.useDelimiter(",");
+        int count = 0;
+        while (reader.hasNext()){
+            String line = reader.next();
+            String name = "hi";
+            String startDay = "";
+            String endDay = "";
+            
+            int firstComma = line.indexOf(',');
+            int secondComma = line.indexOf(',', firstComma+1);
+            int thirdComma = line.indexOf(',', secondComma+1);
+
+            name = line.substring(0, firstComma);
+            startDay = line.substring(firstComma+1, secondComma);
+            endDay = line.substring(secondComma+1, thirdComma);
+
+            System.out.println("name: " + name);
+            System.out.println("start day: " + startDay);
+            System.out.println("end day: " + endDay);
+
+
+
+            count++;
+        }
+        reader.close();
+    }
 
     //Gant Chart Functions
     /*private Button weekslb(String text) {
