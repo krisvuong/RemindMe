@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="scenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="600.0" style="-fx-background-color: #23272a;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneController">
+   <children>
+      <Button fx:id="ganttChartBtn" layoutX="200.0" layoutY="311.0" mnemonicParsing="false" onAction="#switchScene3" prefHeight="30.0" prefWidth="202.0" style="-fx-background-color: #7289da;" text="GANTT CHART">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="assignmentBtn" layoutX="200.0" layoutY="261.0" mnemonicParsing="false" onAction="#switchScene6" prefHeight="30.0" prefWidth="202.0" style="-fx-background-color: #7289da;" text="ALL REMINDERS">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="200.0" layoutY="161.0" mnemonicParsing="false" onAction="#switchScene2" prefHeight="30.0" prefWidth="202.0" style="-fx-background-color: #7289da;" text="SCHEDULE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="display" />
+      <Button fx:id="exitBtn" layoutX="512.0" layoutY="355.0" mnemonicParsing="false" onAction="#exitt" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: red;" text="EXIT">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Text fx:id="text" fill="#ffffffd1" layoutX="33.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RemindMe" wrappingWidth="245.2808837890625">
+         <font>
+            <Font name="System Bold" size="42.0" />
+         </font>
+      </Text>
+      <Button layoutX="200.0" layoutY="211.0" mnemonicParsing="false" onAction="#switchScene5" prefHeight="30.0" prefWidth="202.0" style="-fx-background-color: #7289da;" text="NEW ASSIGNMENT">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Pane layoutX="32.0" layoutY="319.0" prefHeight="39.0" prefWidth="42.0" style="-fx-background-color: #99aab5;" />
+      <Pane layoutX="53.0" layoutY="273.0" prefHeight="63.0" prefWidth="66.0" style="-fx-background-color: #7289da;" />
+      <Pane layoutX="74.0" layoutY="319.0" prefHeight="56.0" prefWidth="56.0" style="-fx-background-color: white;" />
+   </children>
+</AnchorPane>

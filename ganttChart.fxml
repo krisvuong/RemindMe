@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="600.0" style="-fx-background-color: #2c2f33;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneController">
+   <children>
+      <Button layoutX="246.0" layoutY="365.0" mnemonicParsing="false" onAction="#switchScene4" prefHeight="30.0" prefWidth="107.0" style="-fx-background-color: #7289da;" text="Return" />
+      <Label layoutX="75.0" layoutY="42.0" text="YOUR GANTT CHART FOR THIS MONTH" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <BarChart layoutX="50.0" layoutY="96.0" prefHeight="244.0" prefWidth="500.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" tickLabelFill="WHITE" upperBound="5.0" />
+        </yAxis>
+      </BarChart>
+      <Text fill="WHITE" layoutX="87.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blue =" />
+      <Text fill="WHITE" layoutX="268.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Red =" />
+      <Text fill="WHITE" layoutX="414.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Green =" />
+      <Label layoutX="45.0" layoutY="150.0" text="W" textFill="#99aab5" />
+      <Label layoutX="47.0" layoutY="180.0" text="e" textFill="#99aab5" />
+      <Label layoutX="47.0" layoutY="210.0" text="e" textFill="#99aab5" />
+      <Label layoutX="47.0" layoutY="240.0" text="k" textFill="#99aab5" />
+   </children>
+</AnchorPane>
