@@ -416,24 +416,23 @@ public class SceneController {
             catch(Exception e){
             }
 
-            //Calculate total days until start, and duration of assignment
+            //Calculate duration of assignment and days until start
             daysDuration = calculateDuration(endDate, startDate);
             daysTilStart = calculateTilToday(startDate, today);
 
             //Print error if end date comes before start date
             if(daysDuration<0){
                 newAssignmentError.setText("The end date must come after the start date.");
+                astrix2.setText("*");
+                astrix3.setText("*");
             }
             else if(today.after(endDate)){
                 newAssignmentError.setText("This assignment has already passed!");
+                astrix3.setText("*");
             }
             //Print success message
             else{
-                newAssignmentError.setText("");
-                newAssignmentSuccess.setText("Saved succesfully!");
-                
-                ///////////////////////////////////////////////////////////////////
-                ////// CALL METHOD TO WRITE INFO INTO CSV  ////////////////////////
+                assignmentSuccess();
             }
         }
     }
@@ -465,6 +464,26 @@ public class SceneController {
         long daysTilToday = (startDate.getTime() - today.getTime())/86400000;
         int days = (int)daysTilToday;
         return days;
+    }
+
+    //Write New Assignment info to CSV (and print success message)
+    private void assignmentSuccess(){
+        newAssignmentError.setText("");
+        newAssignmentSuccess.setText("Saved succesfully!");
+        
+        Reminder remind1 = new Reminder();
+        Calendar begin = Calendar.getInstance();
+        Calendar due = Calendar.getInstance();
+        begin.clear();
+        due.clear();
+        begin.set(startDay.getValue().getYear(), startDay.getValue().getMonthValue() - 1, startDay.getValue().getDayOfMonth());
+        due.set(endDay.getValue().getYear(), endDay.getValue().getMonthValue() - 1, endDay.getValue().getDayOfMonth());
+        
+        remind1.setName(assignmentName.getText());
+        remind1.setStartDate(begin);
+        remind1.setEndDate(due);
+        remind1.setTime("23:59");
+        FileHandler.writeToCSV(remind1);
     }
 
 
