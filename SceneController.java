@@ -411,7 +411,6 @@ public class SceneController {
             String returnMsg = "";
             Date startDate = new Date();  //initialize start date
             Date endDate = new Date();  //initialize end date
-            Date today = new Date();  //get present date
 
             //Parse string dates to Date types
             startDate = string2Date(start);
@@ -419,7 +418,7 @@ public class SceneController {
 
             //Calculate duration of assignment and days until start
             daysDuration = calculateDuration(endDate, startDate);
-            daysTilStart = calculateTilToday(startDate, today);
+            daysTilStart = calculateTilToday(startDate);
 
             //Print success or error messages
             if(daysDuration<0){
@@ -438,7 +437,7 @@ public class SceneController {
     ////////////
     //  ADD DOCSTIRNG   ///////
     private Date string2Date(String strDate){
-        SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
+        SimpleDateFormat simple = new SimpleDateFormat ("dd-MM-yyyy");
         Date date = new Date();
         //Parse String input dates into Date types
         try{
@@ -485,7 +484,8 @@ public class SceneController {
      * 
      * @author - Kris Vuong
      */
-    private int calculateTilToday (Date startDate, Date today){
+    private int calculateTilToday (Date startDate){
+        Date today = new Date();  //get present date
         long daysTilToday = (startDate.getTime() - today.getTime())/86400000;
         int days = (int)daysTilToday;
         return days;
@@ -549,19 +549,25 @@ public class SceneController {
             String startDay = "";
             String endDay = "";
             
+            //Find indices of delimiters (comma)
             int firstComma = line.indexOf(',');
             int secondComma = line.indexOf(',', firstComma+1);
             int thirdComma = line.indexOf(',', secondComma+1);
 
+            //Substring name, start and end of each assignment
             name = line.substring(0, firstComma);
             startDay = line.substring(firstComma+1, secondComma);
             endDay = line.substring(secondComma+1, thirdComma);
 
-            System.out.println("name: " + name);
-            System.out.println("start day: " + startDay);
-            System.out.println("end day: " + endDay);
+            //Parse string dates to Date type
+            Date start = string2Date(startDay);
+            Date end = string2Date(endDay);
 
+            //Find days duration of each assignment
+            calculateDuration(end, start);
 
+            //Find days until start of each assignment
+            calculateTilToday(start);
 
             count++;
         }
