@@ -99,10 +99,6 @@ public class SceneController {
     @FXML
     private Text astrix3;
 
-    //Other necessary variables   ////REMOVE BEFORE SUBMITTING
-    int daysToStart;
-    int daysAssignmentDuration;
-
     /**
      * @author: Teja
      * @param: ActionEvent event
@@ -377,10 +373,14 @@ public class SceneController {
     }
 
 
-
-    //New Assignment Option - validation and return duration
+    /* 
+     * Handles option 2 of the main menu: enter a new assignment
+     * 
+     * @author - Kris Vuong
+     * @param ActionEvent event
+     */
     public void assignmentDuration(ActionEvent event) throws IOException {
-        //Reset error/success messages
+        //Reset error or success messages
         astrix1.setText("");
         astrix2.setText("");
         astrix3.setText("");
@@ -420,24 +420,24 @@ public class SceneController {
             daysDuration = calculateDuration(endDate, startDate);
             daysTilStart = calculateTilToday(startDate, today);
 
-            //Print error if end date comes before start date
+            //Print success or error messages
             if(daysDuration<0){
-                newAssignmentError.setText("The end date must come after the start date.");
-                astrix2.setText("*");
-                astrix3.setText("*");
+                assignmentInvalid();    //error
             }
             else if(today.after(endDate)){
-                newAssignmentError.setText("This assignment has already passed!");
-                astrix3.setText("*");
+                assignmentPassed();     //error
             }
             //Print success message
             else{
-                assignmentSuccess();
+                assignmentSuccess();    //success
             }
         }
     }
-
-    //Check for missing fields in newAssignment (option 2)
+    /* 
+     * Prints error message and asterisks for empty fields (in option 2)
+     * 
+     * @author - Kris Vuong
+     */
     private void missingInfo() {
         newAssignmentError.setText("Please enter information in all fields");
         
@@ -452,23 +452,55 @@ public class SceneController {
         }
     }
 
-    //Calculate duration of assignment (option 2)
+    /* 
+     * Calculates the duration of the assignment in days (in option 2)
+     * 
+     * @author - Kris Vuong
+     */
     private int calculateDuration(Date endDate, Date startDate){
-        long daysDuration = (endDate.getTime() - startDate.getTime())/86400000;  //.getTime() gives milliseconds since July 1 1970 (divide to get # of days)
+        long daysDuration = (endDate.getTime() - startDate.getTime())/86400000;  //.getTime() gives milliseconds since epoch (divide to get # of days)
         int days = (int)daysDuration;
         return days;
     }
 
-    //Calculate days until the assignment starts (option 2)
+    /* 
+     * Calculates the number of days until the assignment begins (in option 2)
+     * 
+     * @author - Kris Vuong
+     */
     private int calculateTilToday (Date startDate, Date today){
         long daysTilToday = (startDate.getTime() - today.getTime())/86400000;
         int days = (int)daysTilToday;
         return days;
     }
 
-    //Write New Assignment info to CSV (and print success message)
+    /* 
+     * Prints error message for invalid start/end date(in option 2)
+     * 
+     * @author - Kris Vuong
+     */
+    private void assignmentInvalid(){
+        newAssignmentError.setText("The end date must come after the start date.");
+        astrix2.setText("*");
+        astrix3.setText("*");
+    }
+
+    /* 
+     * Prints error message for invalid end date (in option 2)
+     * 
+     * @author - Kris Vuong
+     */
+    private void assignmentPassed(){
+        newAssignmentError.setText("This assignment has already passed!");
+        astrix3.setText("*");
+    }
+
+    /* 
+     * Prints success message and writes info to CSV (in option 2)
+     * 
+     * @author - Michelle Chan
+     */
     private void assignmentSuccess(){
-        newAssignmentError.setText("");
         newAssignmentSuccess.setText("Saved succesfully!");
         
         Reminder remind1 = new Reminder();
