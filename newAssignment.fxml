@@ -13,11 +13,11 @@
    <children>
       <Pane layoutX="-35.0" layoutY="323.0" prefHeight="171.0" prefWidth="186.0" style="-fx-background-radius: 90; -fx-background-color: #3a434a;" />
       <Pane layoutX="410.0" layoutY="24.0" prefHeight="171.0" prefWidth="186.0" style="-fx-background-radius: 90; -fx-background-color: #3a434a;" />
-      <Button layoutX="122.0" layoutY="345.0" mnemonicParsing="false" onAction="#switchScene4" prefHeight="26.0" prefWidth="93.0" style="-fx-background-color: #7289da;" text="Return" />
+      <Button layoutX="122.0" layoutY="345.0" mnemonicParsing="false" onAction="#switchScene4" prefHeight="26.0" prefWidth="93.0" style="-fx-background-color: #99aab5;" text="Return" />
       <Button fx:id="submitButton" layoutX="340.0" layoutY="345.0" mnemonicParsing="false" onAction="#assignmentDuration" prefHeight="26.0" prefWidth="93.0" style="-fx-background-color: #7289da;" text="Submit" />
       <Label layoutX="33.0" layoutY="31.0" text="ENTER YOUR ASSIGNMENT" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="Consolas Bold" size="26.0" />
          </font>
       </Label>
       <Label layoutX="98.0" layoutY="125.0" text="NAME OF THE ASSIGNMENT:" textFill="#99aab5">
