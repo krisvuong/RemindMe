@@ -33,11 +33,11 @@ public class allRemindersFile {
             String line = null;
             // while the csv has a line
             while ((line = reader.readLine()) != null) {
-                // stores all the values of the csv file in an array list called "elements".
+                // stores all the lines of the csv file in an array list called "elements".
                 // Useful to use an array list, instead of array
                 // because an array list doesn't have defined index value, so there won't be an
                 // "index out of bound" exception if the user
-                // adds more rows to the csv file
+                // adds more rows (reminders) to the csv file
                 String[] splitted = line.split(",");
                 elements.add(splitted);
             }
