@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -34,12 +35,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.Group;
 
@@ -236,7 +239,6 @@ public class SceneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        createBars();
     }
 
     public void switchScene4(ActionEvent event) throws IOException {
@@ -411,10 +413,11 @@ public class SceneController {
             String returnMsg = "";
             Date startDate = new Date();  //initialize start date
             Date endDate = new Date();  //initialize end date
+            Date today = new Date();    //initialize current date
 
             //Parse string dates to Date types
-            startDate = string2Date(start);
-            endDate = string2Date(end);
+            startDate = SDF1(start);
+            endDate = SDF1(end);
 
             //Calculate duration of assignment and days until start
             daysDuration = calculateDuration(endDate, startDate);
@@ -436,8 +439,8 @@ public class SceneController {
 
     ////////////
     //  ADD DOCSTIRNG   ///////
-    private Date string2Date(String strDate){
-        SimpleDateFormat simple = new SimpleDateFormat ("dd-MM-yyyy");
+    private Date SDF1(String strDate){
+        SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
         Date date = new Date();
         //Parse String input dates into Date types
         try{
@@ -446,6 +449,22 @@ public class SceneController {
         catch(Exception e){
         }
         return date;
+    }
+
+    private Date SDF2(String strDate) throws ParseException{
+        SimpleDateFormat simple = new SimpleDateFormat ("dd-MM-yyyy");
+        Date date = new Date();
+        //Parse String input dates into Date types
+        try{
+            date = simple.parse(strDate);
+            //System.out.println(strDate);
+            return date;
+        }
+        catch(Exception e){
+            date = simple.parse("01-01-1980");
+            System.out.println(e);
+            return date;
+        }
     }
 
 
@@ -536,43 +555,296 @@ public class SceneController {
     }
 
 
+    @FXML
+    private Rectangle rectangle1;
+
+    @FXML
+    private Rectangle rectangle2;
+    
+    @FXML
+    private Rectangle rectangle3;
+    
+    @FXML
+    private Rectangle rectangle4;
+    
+    @FXML
+    private Rectangle rectangle5;
+    
+    @FXML
+    private Rectangle rectangle6;
+    
+    @FXML
+    private Rectangle rectangle7;
+    
+    @FXML
+    private Rectangle rectangle8;
+    
+    @FXML
+    private Rectangle rectangle9;
+    
+    @FXML
+    private Rectangle rectangle10;
+    
+    @FXML
+    private Rectangle rectangle11;
+    
+    @FXML
+    private Rectangle rectangle12;
+    
+    @FXML
+    private Rectangle rectangle13;
+
+    @FXML
+    private Button reload;
+
+    //one day = 14.666666666666667 pixels 
+    
+    String[] nameArr = new String[14];
+    String[] startArr = new String[14];
+    String[] endArr = new String[14];
+
+    public void loadBars() throws IOException, ParseException{
+        
+        rectangle1.setWidth(createBars(1, 1));
+        rectangle1.setX(createBars(2, 1));
+        
+        rectangle2.setWidth(createBars(1, 2));
+        rectangle2.setX(createBars(2, 2));
+        
+        rectangle3.setWidth(createBars(1, 3));
+        rectangle3.setX(createBars(2, 3));
+        
+        rectangle4.setWidth(createBars(1, 4));
+        rectangle4.setX(createBars(2, 4));
+
+        rectangle5.setWidth(createBars(1,5));
+        rectangle5.setX(createBars(2,5));
+
+        rectangle6.setWidth(createBars(1,6));
+        rectangle6.setX(createBars(2,6));
+
+        rectangle7.setWidth(createBars(1,7));
+        rectangle7.setX(createBars(2,7));
+
+        rectangle8.setWidth(createBars(1,8));
+        rectangle8.setX(createBars(2,8));
+
+        rectangle9.setWidth(createBars(1,9));
+        rectangle9.setX(createBars(2,9));
+
+        rectangle10.setWidth(createBars(1,10));
+        rectangle10.setX(createBars(2,10));
+
+        rectangle11.setWidth(createBars(1,11));
+        rectangle11.setX(createBars(2,11));
+
+        rectangle12.setWidth(createBars(1,12));
+        rectangle12.setX(createBars(2,12));
+
+        rectangle13.setWidth(createBars(1,13));
+        rectangle13.setX(createBars(2,13));
+
+        for (String x : nameArr){
+            System.out.println(x);
+        }
+        for (String x : startArr){
+            System.out.println(x);
+        }
+        for (String x : endArr){
+            System.out.println(x);
+        }
+    }
+    @FXML
+    private Label titleee;
+
+    @FXML
+    private Text ganttName;
+    
+    @FXML
+    private Text ganttStart;
+    
+    @FXML
+    private Text ganttEnd;
+    
+    public void showText1(MouseEvent event){
+        ganttName.setText(nameArr[4]);
+        ganttStart.setText(startArr[4]);
+        ganttEnd.setText(endArr[4]);
+    }
+    public void showText2(MouseEvent event){
+        ganttName.setText(nameArr[2]);
+        ganttStart.setText(startArr[2]);
+        ganttEnd.setText(endArr[2]);
+    }
+    public void showText3(MouseEvent event){
+        ganttName.setText(nameArr[3]);
+        ganttStart.setText(startArr[3]);
+        ganttEnd.setText(endArr[3]);
+    }
+    public void showText4(MouseEvent event){
+        ganttName.setText(nameArr[4]);
+        ganttStart.setText(startArr[4]);
+        ganttEnd.setText(endArr[4]);
+    }
+    public void showText5(MouseEvent event){
+        ganttName.setText(nameArr[5]);
+        ganttStart.setText(startArr[5]);
+        ganttEnd.setText(endArr[5]);
+    }
+    public void showText6(MouseEvent event){
+        ganttName.setText(nameArr[6]);
+        ganttStart.setText(startArr[6]);
+        ganttEnd.setText(endArr[6]);
+    }
+    public void showText7(MouseEvent event){
+        ganttName.setText(nameArr[7]);
+        ganttStart.setText(startArr[7]);
+        ganttEnd.setText(endArr[7]);
+    }
+    public void showText8(MouseEvent event){
+        ganttName.setText(nameArr[8]);
+        ganttStart.setText(startArr[8]);
+        ganttEnd.setText(endArr[8]);
+    }
+    public void showText9(MouseEvent event){
+        ganttName.setText(nameArr[9]);
+        ganttStart.setText(startArr[9]);
+        ganttEnd.setText(endArr[9]);
+    }
+    public void showText10(MouseEvent event){
+        ganttName.setText(nameArr[10]);
+        ganttStart.setText(startArr[10]);
+        ganttEnd.setText(endArr[10]);
+    }
+    public void showText11(MouseEvent event){
+        ganttName.setText(nameArr[11]);
+        ganttStart.setText(startArr[11]);
+        ganttEnd.setText(endArr[11]);
+    }
+    public void showText12(MouseEvent event){
+        ganttName.setText(nameArr[12]);
+        ganttStart.setText(startArr[12]);
+        ganttEnd.setText(endArr[12]);
+    }
+    public void showText13(MouseEvent event){
+        ganttName.setText(nameArr[13]);
+        ganttStart.setText(startArr[13]);
+        ganttEnd.setText(endArr[13]);
+    }
     //GANTT CHARTTT
-    private void createBars() throws IOException{
+    public double createBars(int x, int previous) throws IOException, ParseException{
         Scanner reader = new Scanner(new File(".\\assignment.csv"));
          
         //Set delimiter used in csv
         //reader.useDelimiter(",");
-        int count = 0;
-        while (reader.hasNext()){
-            String line = reader.next();
-            String name = "hi";
-            String startDay = "";
-            String endDay = "";
-            
-            //Find indices of delimiters (comma)
-            int firstComma = line.indexOf(',');
-            int secondComma = line.indexOf(',', firstComma+1);
-            int thirdComma = line.indexOf(',', secondComma+1);
 
-            //Substring name, start and end of each assignment
-            name = line.substring(0, firstComma);
-            startDay = line.substring(firstComma+1, secondComma);
-            endDay = line.substring(secondComma+1, thirdComma);
+        int counter = 1;
+        
+            while (reader.hasNext()){
+                String line = reader.next();
+                String name = "";
+                String startDay = "";
+                String endDay = "";
+                Date randomDay = SDF2("01-01-1980");
+                
+                //Find indices of delimiters (comma)
+                int firstComma = line.indexOf(',');
+                int secondComma = line.indexOf(',', firstComma+1);
+                int thirdComma = line.indexOf(',', secondComma+1);
 
-            //Parse string dates to Date type
-            Date start = string2Date(startDay);
-            Date end = string2Date(endDay);
+                //Substring the name, start and end of each assignment
+                name = line.substring(0, firstComma);
+                startDay = line.substring(firstComma+1, secondComma);
+                endDay = line.substring(secondComma+1, thirdComma);
 
-            //Find days duration of each assignment
-            calculateDuration(end, start);
+                //Parse string dates to Date type
+                Date start = SDF2(startDay);
+                Date end = SDF2(endDay);
 
-            //Find days until start of each assignment
-            calculateTilToday(start);
-
-            count++;
-        }
-        reader.close();
+                //Find days duration of each assignment
+                int duration = calculateDuration(end, start);
+                double dispDuration = duration*14.6666;  //days --> pixles (to scale)
+                //Find days until start of each assignment
+                int untilStart = calculateTilToday(start);
+                double dispTilStart = untilStart*14.6666;  //days --> pixles (to scale)
+                
+                if(start.compareTo(randomDay) != 0 && end.compareTo(randomDay) != 0){
+                        if(untilStart<0 && untilStart + duration >0){
+                            if(x == 1){
+                                counter++;
+                                if(counter == previous){
+                                    nameArr[previous] = name;
+                                    startArr[previous] = startDay;
+                                    endArr[previous] = endDay;
+                                    return dispDuration + dispTilStart;
+                                }
+                            }
+                            else{
+                                counter++;
+                                if(counter == previous){
+                                    nameArr[previous] = name;
+                                    startArr[previous] = startDay;
+                                    endArr[previous] = endDay;
+                                    return 0;
+                                }
+                            }
+                        }
+                        else if(untilStart > 0){
+                            if(x == 1){
+                                counter++;
+                                if(counter == previous){
+                                    nameArr[previous] = name;
+                                    startArr[previous] = startDay;
+                                    endArr[previous] = endDay;
+                                    return dispDuration;
+                                }
+                            }
+                            else{
+                                counter++;
+                                if(counter == previous){
+                                    nameArr[previous] = name;
+                                    startArr[previous] = startDay;
+                                    endArr[previous] = endDay;
+                                    return dispTilStart + 14.6666;
+                                }
+                            }
+                        }
+                        else if(untilStart == 0){
+                            if(x == 1){
+                                counter++;
+                                if(counter == previous){
+                                    nameArr[previous] = name;
+                                    startArr[previous] = startDay;
+                                    endArr[previous] = endDay;
+                                    return dispDuration;
+                                }
+                            }
+                            else{
+                                counter++;
+                                if(counter == previous){
+                                    nameArr[previous] = name;
+                                    startArr[previous] = startDay;
+                                    endArr[previous] = endDay;
+                                    return dispTilStart;
+                                }
+                            }
+                        }
+                    /*
+                    System.out.println("Name: " + name);
+                    System.out.println("start: " + startDay);
+                    System.out.println("end: " + endDay);
+                    System.out.println("Duration: " + calculateDuration(end, start));
+                    System.out.println("Until Today: " + calculateTilToday(start));
+                    */
+                }
+            }
+            return 0;
     }
+
+    //private void 
+            ////CHECK DURATION (IF ASSIGNMENT IS OVER) BEFORE SENDING TO GANTT CHART
+
+
 
     //Gant Chart Functions
     /*private Button weekslb(String text) {
