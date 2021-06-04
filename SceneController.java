@@ -109,6 +109,102 @@ public class SceneController {
     @FXML
     private Text astrix3;
 
+    @FXML
+    private Label titleee;
+
+    @FXML
+    private Text ganttName;
+    
+    @FXML
+    private Text ganttStart;
+    
+    @FXML
+    private Text ganttEnd;
+
+    @FXML
+    private Rectangle rectangle1;
+
+    @FXML
+    private Rectangle rectangle2;
+    
+    @FXML
+    private Rectangle rectangle3;
+    
+    @FXML
+    private Rectangle rectangle4;
+    
+    @FXML
+    private Rectangle rectangle5;
+    
+    @FXML
+    private Rectangle rectangle6;
+    
+    @FXML
+    private Rectangle rectangle7;
+    
+    @FXML
+    private Rectangle rectangle8;
+    
+    @FXML
+    private Rectangle rectangle9;
+    
+    @FXML
+    private Rectangle rectangle10;
+    
+    @FXML
+    private Rectangle rectangle11;
+    
+    @FXML
+    private Rectangle rectangle12;
+    
+    @FXML
+    private Rectangle rectangle13;
+
+    @FXML
+    private Button reload;
+
+    @FXML
+    private Text day1;
+
+    @FXML
+    private Text day2;
+
+    @FXML
+    private Text day3;
+
+    @FXML
+    private Text day4;
+
+    @FXML
+    private Text day5;
+
+    @FXML
+    private Text day6;
+
+    @FXML
+    private Text day7;
+
+    @FXML
+    private Text day8;
+
+    @FXML
+    private Text day9;
+
+    @FXML
+    private Text day10;
+
+    @FXML
+    private Text day11;
+
+    @FXML
+    private Text day12;
+
+    @FXML
+    private Text month1;
+
+    @FXML 
+    private Text month2;
+
     /**
      * @author: Teja
      * @param: ActionEvent event
@@ -225,7 +321,7 @@ public class SceneController {
         }
     }
 
-    public void switchScene2(ActionEvent event) throws IOException {
+    public void switchScene2(ActionEvent event) throws IOException, ParseException {
         root = FXMLLoader.load(getClass().getResource("schedule.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -233,7 +329,7 @@ public class SceneController {
         stage.show();
     }
 
-    public void switchScene3(ActionEvent event) throws IOException {
+    public void switchScene3(ActionEvent event) throws IOException, ParseException {
         root = FXMLLoader.load(getClass().getResource("ganttChart.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -462,7 +558,6 @@ public class SceneController {
         }
         catch(Exception e){
             date = simple.parse("01-01-1980");
-            System.out.println(e);
             return date;
         }
     }
@@ -554,49 +649,6 @@ public class SceneController {
         FileHandler.writeToCSV(assign1);
     }
 
-
-    @FXML
-    private Rectangle rectangle1;
-
-    @FXML
-    private Rectangle rectangle2;
-    
-    @FXML
-    private Rectangle rectangle3;
-    
-    @FXML
-    private Rectangle rectangle4;
-    
-    @FXML
-    private Rectangle rectangle5;
-    
-    @FXML
-    private Rectangle rectangle6;
-    
-    @FXML
-    private Rectangle rectangle7;
-    
-    @FXML
-    private Rectangle rectangle8;
-    
-    @FXML
-    private Rectangle rectangle9;
-    
-    @FXML
-    private Rectangle rectangle10;
-    
-    @FXML
-    private Rectangle rectangle11;
-    
-    @FXML
-    private Rectangle rectangle12;
-    
-    @FXML
-    private Rectangle rectangle13;
-
-    @FXML
-    private Button reload;
-
     //one day = 14.666666666666667 pixels 
     
     String[] nameArr = new String[14];
@@ -604,7 +656,8 @@ public class SceneController {
     String[] endArr = new String[14];
 
     public void loadBars() throws IOException, ParseException{
-        
+        setAxisDates();
+
         rectangle1.setWidth(createBars(1, 1));
         rectangle1.setX(createBars(2, 1));
         
@@ -644,6 +697,7 @@ public class SceneController {
         rectangle13.setWidth(createBars(1,13));
         rectangle13.setX(createBars(2,13));
 
+        /*
         for (String x : nameArr){
             System.out.println(x);
         }
@@ -652,20 +706,65 @@ public class SceneController {
         }
         for (String x : endArr){
             System.out.println(x);
-        }
+        }*/
     }
-    @FXML
-    private Label titleee;
+    
+    private void setAxisDates(){
+        Calendar today = Calendar.getInstance();
+        SimpleDateFormat dateOfMonth = new SimpleDateFormat("dd");
+        SimpleDateFormat monthOfYear = new SimpleDateFormat("MMMM");
+        String date;
 
-    @FXML
-    private Text ganttName;
-    
-    @FXML
-    private Text ganttStart;
-    
-    @FXML
-    private Text ganttEnd;
-    
+        day1.setText(dateOfMonth.format(today.getTime()));
+        month1.setText(monthOfYear.format(today.getTime()));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day2.setText(date);
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day3.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day4.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day5.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day6.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day7.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day8.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day9.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day10.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day11.setText(String.valueOf(date));
+
+        today.add(Calendar.DATE, 3);
+        date = dateOfMonth.format(today.getTime());
+        day12.setText(String.valueOf(date));
+        month2.setText(monthOfYear.format(today.getTime()));
+    }
+
+
     public void showText1(MouseEvent event){
         ganttName.setText(nameArr[4]);
         ganttStart.setText(startArr[4]);
@@ -745,8 +844,8 @@ public class SceneController {
                 String name = "";
                 String startDay = "";
                 String endDay = "";
-                Date randomDay = SDF2("01-01-1980");
-                
+                Date randomDay = SDF2("01-01-1980");  //arbitrary date
+
                 //Find indices of delimiters (comma)
                 int firstComma = line.indexOf(',');
                 int secondComma = line.indexOf(',', firstComma+1);
@@ -768,7 +867,7 @@ public class SceneController {
                 int untilStart = calculateTilToday(start);
                 double dispTilStart = untilStart*14.6666;  //days --> pixles (to scale)
                 
-                if(start.compareTo(randomDay) != 0 && end.compareTo(randomDay) != 0){
+                if(start.compareTo(randomDay) != 0 && end.compareTo(randomDay) != 0){  //if a date parse exception did not occur
                         if(untilStart<0 && untilStart + duration >0){
                             if(x == 1){
                                 counter++;
@@ -776,6 +875,9 @@ public class SceneController {
                                     nameArr[previous] = name;
                                     startArr[previous] = startDay;
                                     endArr[previous] = endDay;
+                                    if(duration + untilStart > 33){
+                                        return 483.9978;        //return bar that extends entire length of chart
+                                    }
                                     return dispDuration + dispTilStart;
                                 }
                             }
@@ -796,6 +898,9 @@ public class SceneController {
                                     nameArr[previous] = name;
                                     startArr[previous] = startDay;
                                     endArr[previous] = endDay;
+                                    if(duration + untilStart > 33){
+                                        return 469.3312-dispTilStart;
+                                    }
                                     return dispDuration;
                                 }
                             }
@@ -816,6 +921,9 @@ public class SceneController {
                                     nameArr[previous] = name;
                                     startArr[previous] = startDay;
                                     endArr[previous] = endDay;
+                                    if(duration > 33){
+                                        return 483.9978;
+                                    }
                                     return dispDuration;
                                 }
                             }

@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2c2f33;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneController">
    <children>
       <Button layoutX="306.0" layoutY="357.0" mnemonicParsing="false" onAction="#switchScene4" prefHeight="30.0" prefWidth="96.0" style="-fx-background-color: #7289da;" text="Return" />
-      <Label fx:id="titleee" layoutX="89.0" layoutY="16.0" text="YOUR GANTT CHART FOR THIS MONTH" textFill="WHITE">
+      <Label fx:id="titleee" layoutX="89.0" layoutY="16.0" text="YOUR GANTT CHART FOR THIS MONTH" textFill="#a8bedf">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -26,32 +26,32 @@
           <NumberAxis minorTickCount="3" side="LEFT" tickLabelsVisible="false" />
         </yAxis>
       </LineChart>
-      <Text fx:id="day1" fill="WHITE" layoutX="47.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-      <Text fx:id="day2" fill="WHITE" layoutX="92.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day3" fill="WHITE" layoutX="135.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day4" fill="WHITE" layoutX="179.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day5" fill="WHITE" layoutX="224.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day6" fill="WHITE" layoutX="266.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day7" fill="WHITE" layoutX="309.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day8" fill="WHITE" layoutX="354.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day9" fill="WHITE" layoutX="398.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day10" fill="WHITE" layoutX="443.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day11" fill="WHITE" layoutX="487.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text fx:id="day12" fill="WHITE" layoutX="532.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Rectangle fx:id="rectangle1" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="130.0" onMouseEntered="#showText1" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Button fx:id="reload" layoutX="201.0" layoutY="357.0" mnemonicParsing="false" onAction="#loadBars" prefHeight="31.0" prefWidth="96.0" text="Reload" />
-      <Rectangle fx:id="rectangle2" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="145.0" onMouseEntered="#showText2" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle3" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="160.0" onMouseEntered="#showText3" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle4" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="175.0" onMouseEntered="#showText4" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle5" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="190.0" onMouseEntered="#showText5" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle6" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="205.0" onMouseEntered="#showText6" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle7" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="220.0" onMouseEntered="#showText7" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle8" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="235.0" onMouseEntered="#showText8" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle9" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="250.0" onMouseEntered="#showText9" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle10" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="265.0" onMouseEntered="#showText10" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle11" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="280.0" onMouseEntered="#showText11" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle12" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="295.0" onMouseEntered="#showText12" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="rectangle13" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="310.0" onMouseEntered="#showText13" stroke="TRANSPARENT" strokeType="INSIDE" width="88.0" />
+      <Text fx:id="day1" fill="WHITE" layoutX="47.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day2" fill="WHITE" layoutX="92.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day3" fill="WHITE" layoutX="135.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day4" fill="WHITE" layoutX="179.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day5" fill="WHITE" layoutX="224.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day6" fill="WHITE" layoutX="266.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day7" fill="WHITE" layoutX="309.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day8" fill="WHITE" layoutX="354.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day9" fill="WHITE" layoutX="398.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day10" fill="WHITE" layoutX="443.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day11" fill="WHITE" layoutX="487.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="day12" fill="WHITE" layoutX="532.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Rectangle fx:id="rectangle1" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="130.0" onMouseEntered="#showText1" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Button fx:id="reload" layoutX="201.0" layoutY="357.0" mnemonicParsing="false" onAction="#loadBars" prefHeight="31.0" prefWidth="96.0" style="-fx-background-color: #a8bedf #a8bedf;" text="Reload" />
+      <Rectangle fx:id="rectangle2" fill="#a7d3fa" height="8.0" layoutX="53.0" layoutY="145.0" onMouseEntered="#showText2" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle3" fill="#87bded" height="8.0" layoutX="53.0" layoutY="160.0" onMouseEntered="#showText3" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle4" fill="#6ea7d8" height="8.0" layoutX="53.0" layoutY="175.0" onMouseEntered="#showText4" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle5" fill="#6899c4" height="8.0" layoutX="53.0" layoutY="190.0" onMouseEntered="#showText5" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle6" fill="#5e87ad" height="8.0" layoutX="53.0" layoutY="205.0" onMouseEntered="#showText6" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle7" fill="#477aa6" height="8.0" layoutX="53.0" layoutY="220.0" onMouseEntered="#showText7" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle8" fill="#3d709c" height="8.0" layoutX="53.0" layoutY="235.0" onMouseEntered="#showText8" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle9" fill="#306492" height="8.0" layoutX="53.0" layoutY="250.0" onMouseEntered="#showText9" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle10" fill="#356188" height="8.0" layoutX="53.0" layoutY="265.0" onMouseEntered="#showText10" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle11" fill="#346188" height="8.0" layoutX="53.0" layoutY="280.0" onMouseEntered="#showText11" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle12" fill="#2b5070" height="8.0" layoutX="53.0" layoutY="295.0" onMouseEntered="#showText12" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Rectangle fx:id="rectangle13" fill="#183956" height="8.0" layoutX="53.0" layoutY="310.0" onMouseEntered="#showText13" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Text fill="WHITE" layoutX="179.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
          <font>
             <Font size="10.0" />
@@ -82,9 +82,19 @@
             <Font size="10.0" />
          </font>
       </Text>
-      <Text fill="#608bf7" layoutX="171.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hover over bars to see assignment information">
+      <Text fill="WHITE" layoutX="171.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hover over bars to see assignment information">
          <font>
-            <Font name="System Italic" size="13.0" />
+            <Font name="Al Bayan Plain" size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="month1" fill="#a8b9f0" layoutX="33.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="month2" fill="#a8b9f0" layoutX="526.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="15.0" />
          </font>
       </Text>
    </children>
