@@ -1,5 +1,5 @@
 /*
- * Date: June 5, 2021
+ * Date: June 4, 2021
  * Names: Kris, Teja, Michelle Chan, Michelle Lau 
  * Teacher: Mr. Ho
  * Description: Final Project - RemindMe
