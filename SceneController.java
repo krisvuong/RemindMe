@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -23,28 +18,26 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.Group;
 
 public class SceneController {
 
@@ -52,6 +45,15 @@ public class SceneController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    @FXML
+    private AnchorPane scenePane;
+
+    @FXML
+    private Button exitBtn;
+
+    @FXML
+    private ColorPicker color;
 
     // Schedule Scene Variables
     @FXML
@@ -65,23 +67,12 @@ public class SceneController {
     private DatePicker datePicker;
 
     @FXML
-    private Label lbDate;
-
-    @FXML
-    private Label label;
-
-    @FXML
-    private AnchorPane scenePane;
-
-    @FXML
-    private Button exitBtn;
-
-    @FXML
     private TextField txtField;
 
     @FXML
     private TextField txtField1;
 
+    // New Assignment Variables
     @FXML
     private DatePicker startDay;
 
@@ -109,6 +100,7 @@ public class SceneController {
     @FXML
     private Text astrix3;
 
+    // Gantt Chart Variables
     @FXML
     private Label titleee;
 
@@ -205,11 +197,11 @@ public class SceneController {
     @FXML 
     private Text month2;
 
+
     /**
      * @author: Teja
      * @param: ActionEvent event
      */
-    // Main Scene Functions
     public void switchScene1(ActionEvent event) throws IOException {
         // Validation for missing inputs
         if (txtField.getText().equals("") || txtField1.getText().equals("")) {
@@ -321,47 +313,6 @@ public class SceneController {
         }
     }
 
-    public void switchScene2(ActionEvent event) throws IOException, ParseException {
-        root = FXMLLoader.load(getClass().getResource("schedule.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchScene3(ActionEvent event) throws IOException, ParseException {
-        root = FXMLLoader.load(getClass().getResource("ganttChart.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchScene4(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("SceneBuilder.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchScene5(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("newAssignment.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchScene6(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("allReminders.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    // Schedule Scene FUnctions
     @FXML
     void selectDate(ActionEvent event) {
         Long diffDays = validationDate();
@@ -373,12 +324,6 @@ public class SceneController {
     @FXML
     void clickBox(MouseEvent event) {
         timePick.setItems(timeSlots);
-    }
-
-    @FXML
-    void exitt(ActionEvent event) {
-        stage = (Stage) scenePane.getScene().getWindow();
-        stage.close();
     }
 
     /**
@@ -477,7 +422,67 @@ public class SceneController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
         }
     }
+    
+    /**
+     * @description: Main menu: switch scenes
+     * @author: Michelle Lau
+     * @param event
+     * @throws IOException
+     */
+    public void switchScene2(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("schedule.fxml")); //declare root and get file path
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //declare stage and get resources
+        scene = new Scene(root); //declare new scene
+        stage.setScene(scene); //declare stage
+        stage.show(); //display stage
+    }
 
+    public void switchScene3(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("ganttChart.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchScene4(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("SceneBuilder.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchScene5(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("newAssignment.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchScene6(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("allReminders.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void exitt(ActionEvent event) {
+        stage = (Stage) scenePane.getScene().getWindow();
+        stage.close();
+    }
+
+    /**
+     * @description: Changes background color when a color from color picker is selected
+     * @author: Michelle Lau
+     * @param: event
+     */
+    public void backgroundColor(ActionEvent event) {
+        Color colorcolor = color.getValue();
+        scenePane.setBackground(new Background(new BackgroundFill(colorcolor, null, null)));
+    }
 
     /* 
      * Handles new assignment option from main menu (option 2)
@@ -998,4 +1003,5 @@ public class SceneController {
             }
             return 0;   //arbitrary return value
     }
+
 }
