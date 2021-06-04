@@ -480,14 +480,14 @@ public class SceneController {
 
 
     /* 
-     * Handles option 2 of the main menu: enter a new assignment
+     * Handles new assignment option from main menu (option 2)
      * 
      * @author - Kris Vuong
-     * @param ActionEvent event
+     * @param ActionEvent event (user presses SUBMIT)
      * @throws IOException
      */
     public void assignmentDuration(ActionEvent event) throws IOException {
-        //Reset error or success messages
+        //Reset previous error and success messages
         astrix1.setText("");
         astrix2.setText("");
         astrix3.setText("");
@@ -496,7 +496,7 @@ public class SceneController {
 
         //Check for empty fields
         if(assignmentName.getText().equals("") || startDay.getValue() == null || endDay.getValue() == null){
-            missingInfo();
+            missingInfo();  //sets error message
         }
         
         else{
@@ -505,32 +505,50 @@ public class SceneController {
             String end = endDay.getValue().toString();
             
             //Declare necessary variables
-            long daysTilStart;  //days until assignment start date
-            long daysDuration;  //duration of assignment (in days)
-            String returnMsg = "";
-            Date startDate = new Date();  //initialize start date
+            long daysDuration;          //duration of assignment (in days)
+            Date startDate = new Date();//initialize start date
             Date endDate = new Date();  //initialize end date
             Date today = new Date();    //initialize current date
 
-            //Parse string dates to Date types
+            //Parse and format string dates to Date types
             startDate = SDF1(start);
             endDate = SDF1(end);
 
-            //Calculate duration of assignment and days until start
-            daysDuration = calculateDuration(endDate, startDate);
-            daysTilStart = calculateTilToday(startDate);
+            //Calculate duration of assignment
+            daysDuration = calculateDuration(endDate, startDate);  //returns double with number of days
 
-            //Print success or error messages
+            //Set success or error messages
             if(daysDuration<0){
-                assignmentInvalid();    //error
+                assignmentInvalid();    //error (if the due date comes before the start date)
             }
             else if(today.after(endDate)){
-                assignmentPassed();     //error
+                assignmentPassed();     //error (if the due date already passed)
             }
             //Print success message
             else{
                 assignmentSuccess();    //success
             }
+        }
+    }
+
+    /* 
+     * Sets error message and asterisks for empty fields (in option 2)
+     * 
+     * @author - Kris Vuong
+     */
+    private void missingInfo() {
+        //Set error message
+        newAssignmentError.setText("Please enter information in all fields");
+        
+        //Add red asterisk next to empty fields
+        if(assignmentName.getText().equals("")){
+            astrix1.setText("*");
+        }
+        if(startDay.getValue() == null){
+            astrix2.setText("*");
+        }
+        if(endDay.getValue() == null){
+            astrix3.setText("*");
         }
     }
 
@@ -543,8 +561,9 @@ public class SceneController {
      * @return - Date in yyyy-MM-dd format
      */
     private Date SDF1(String strDate){
-        SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
-        Date date = new Date();
+        SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");  //create Date format
+        Date date = new Date(); //initialize date
+
         //Parse String input dates into Date types
         try{
             date = simple.parse(strDate);
@@ -563,37 +582,17 @@ public class SceneController {
      * @return - Date in dd-MM-yyyy format
      */
     private Date SDF2(String strDate) throws ParseException{
-        SimpleDateFormat simple = new SimpleDateFormat ("dd-MM-yyyy");
-        Date date = new Date();
+        SimpleDateFormat simple = new SimpleDateFormat ("dd-MM-yyyy");  //create Date format
+        Date date = new Date(); //initialize date
+
         //Parse String input dates into Date types
         try{
             date = simple.parse(strDate);
-            //System.out.println(strDate);
             return date;
         }
         catch(Exception e){
-            date = simple.parse("01-01-1980");
+            date = simple.parse("01-01-1980");  //returns arbitrary date if error occurs (this is checked and skipped if it occurs)
             return date;
-        }
-    }
-
-
-    /* 
-     * Prints error message and asterisks for empty fields (in option 2)
-     * 
-     * @author - Kris Vuong
-     */
-    private void missingInfo() {
-        newAssignmentError.setText("Please enter information in all fields");
-        
-        if(assignmentName.getText().equals("")){
-            astrix1.setText("*");
-        }
-        if(startDay.getValue() == null){
-            astrix2.setText("*");
-        }
-        if(endDay.getValue() == null){
-            astrix3.setText("*");
         }
     }
 
@@ -604,7 +603,7 @@ public class SceneController {
      * @return - int containing the duration of the assigment in days
      */
     private int calculateDuration(Date endDate, Date startDate){
-        long daysDuration = (endDate.getTime() - startDate.getTime())/86400000;  //.getTime() gives milliseconds since epoch (divide to get # of days)
+        long daysDuration = (endDate.getTime() - startDate.getTime())/86400000;  //getTime() gives milliseconds since epoch (divide to get # of days)
         int days = (int)daysDuration;
         return days;
     }
@@ -628,8 +627,8 @@ public class SceneController {
      * @author - Kris Vuong
      */
     private void assignmentInvalid(){
-        newAssignmentError.setText("The end date must come after the start date.");
-        astrix2.setText("*");
+        newAssignmentError.setText("The end date must come after the start date."); //set error message
+        astrix2.setText("*");       //set asterisks next to invalid fields
         astrix3.setText("*");
     }
 
@@ -639,8 +638,8 @@ public class SceneController {
      * @author - Kris Vuong
      */
     private void assignmentPassed(){
-        newAssignmentError.setText("This assignment has already passed!");
-        astrix3.setText("*");
+        newAssignmentError.setText("This assignment has already passed!"); //set error message
+        astrix3.setText("*");  //set asterisk next to invalid due date
     }
 
     /* 
@@ -649,8 +648,9 @@ public class SceneController {
      * @author - Michelle Chan
      */
     private void assignmentSuccess(){
-        newAssignmentSuccess.setText("Saved succesfully!");
+        newAssignmentSuccess.setText("Saved succesfully!"); //set success message
         
+        //Write all assignment information to .\\assignment.csv
         Assignment assign1 = new Assignment();
         Calendar begin = Calendar.getInstance();
         Calendar due = Calendar.getInstance();
@@ -666,22 +666,24 @@ public class SceneController {
         FileHandler.writeToCSV(assign1);
     }
     
-    //Assignment info arrays needed by multiple methods
+    //Assignment informaton arrays needed by multiple methods
     String[] nameArr = new String[14];  //allocation = number of assignments the gantt chart can display at once
     String[] startArr = new String[14];
     String[] endArr = new String[14];
 
     /* 
-     * Sets the width of each bar in the Gantt chart
+     * Sets the width of each bar in the Gantt chart (when user presses RELOAD)
      * 
      * @author - Kris Vuong
      * @throws IOException, ParseException
      */
     public void loadBars() throws IOException, ParseException{
+        //Sets dates on the bottom axis, starting from current date
         setAxisDates();
 
-        rectangle1.setWidth(createBars(1, 1));
-        rectangle1.setX(createBars(2, 1));
+        //Set width of bar (duration of assignment) and the displacement from the vertical axis (ex. if assignment starts in 5 days)
+        rectangle1.setWidth(createBars(1, 1));  //pass "1" to receive width of bar
+        rectangle1.setX(createBars(2, 1));      //pass "2" to receive displacement of bar
         
         rectangle2.setWidth(createBars(1, 2));
         rectangle2.setX(createBars(2, 2));
@@ -726,14 +728,15 @@ public class SceneController {
      * @author - Kris Vuong
      */
     private void setAxisDates(){
-        Calendar today = Calendar.getInstance();
-        SimpleDateFormat dateOfMonth = new SimpleDateFormat("dd");
-        SimpleDateFormat monthOfYear = new SimpleDateFormat("MMMM");
+        Calendar today = Calendar.getInstance();  //get current date
+        SimpleDateFormat dateOfMonth = new SimpleDateFormat("dd");  //format to only display date (ex. July 27 2020 --> "27")
+        SimpleDateFormat monthOfYear = new SimpleDateFormat("MMMM");  //format to only display month (ex. July 27 2020 --> "July")
         String date;
 
-        day1.setText(dateOfMonth.format(today.getTime()));
-        month1.setText(monthOfYear.format(today.getTime()));
+        day1.setText(dateOfMonth.format(today.getTime()));  //set first date as current date
+        month1.setText(monthOfYear.format(today.getTime()));  //set starting month as current month
 
+        //Set dates as 3 days later than previous date
         today.add(Calendar.DATE, 3);
         date = dateOfMonth.format(today.getTime());
         day2.setText(date);
@@ -781,15 +784,15 @@ public class SceneController {
     }
 
     /* 
-     * Displays assignment name, start date and end date when mouse hovers corresponding bar on Gantt chart
+     * Displays assignment information when mouse hovers over corresponding bar on Gantt chart
      * 
      * @author - Kris Vuong
      * @param MouseEvent event
      */
     public void showText1(MouseEvent event){
-        ganttName.setText(nameArr[4]);
-        ganttStart.setText(startArr[4]);
-        ganttEnd.setText(endArr[4]);
+        ganttName.setText(nameArr[1]);
+        ganttStart.setText(startArr[1]);
+        ganttEnd.setText(endArr[1]);
     }
     public void showText2(MouseEvent event){
         ganttName.setText(nameArr[2]);
@@ -853,7 +856,7 @@ public class SceneController {
     }
 
     /* 
-     * Finds bar pixel length and x-position for each valid assigment to be displayed on the Gantt chart
+     * Finds bar pixel length and displacement from vertical axis for each valid assigment to be displayed on the Gantt chart
      * 
      * @author - Kris Vuong
      * @param x - the pixel length is returned when x==1, and the x-position is returned for any other int
@@ -862,19 +865,24 @@ public class SceneController {
      * @return - double value of the bar pixel length OR the bar x-position
      */
     public double createBars(int x, int previous) throws IOException, ParseException{
-        Scanner reader = new Scanner(new File(".\\assignment.csv"));
-         
-        //Set delimiter used in csv
-        //reader.useDelimiter(",");
+        String fileName = ".\\assignment.csv";
+        Scanner reader = new Scanner(new File(fileName));  //scan through assignments file
 
+        //Records number of assignments displayed on the gantt chart (excludles invalid assignments, ex. due date has already passed)
         int counter = 1;
         
+            //Reads each row until end of file
             while (reader.hasNext()){
-                String line = reader.next();
+                //Declare variables
+                String line = reader.next();  //store current line of text as a String
                 String name = "";
                 String startDay = "";
                 String endDay = "";
-                Date randomDay = SDF2("01-01-1980");  //arbitrary date
+                int duration;   //number of days duration
+                double dispDuration;    //scaled to number of pixels
+                int untilStart; //number  of days until start
+                double dispTilStart;    //scaled to number of pixels
+                Date randomDay = SDF2("01-01-1980");  //arbitrary date (used for checking for errors -- these cases are ignored)
 
                 //Find indices of delimiters (comma)
                 int firstComma = line.indexOf(',');
@@ -891,84 +899,103 @@ public class SceneController {
                 Date end = SDF2(endDay);
 
                 //Find days duration of each assignment
-                int duration = calculateDuration(end, start);
-                double dispDuration = duration*14.6666;  //days --> pixles (to scale)
+                duration = calculateDuration(end, start);
+                dispDuration = duration*14.6666;  //days --> pixles (to scale)
+
                 //Find days until start of each assignment
-                int untilStart = calculateTilToday(start);
-                double dispTilStart = untilStart*14.6666;  //days --> pixles (to scale)
+                untilStart = calculateTilToday(start);
+                dispTilStart = untilStart*14.6666;  //days --> pixles (to scale)
                 
-                if(start.compareTo(randomDay) != 0 && end.compareTo(randomDay) != 0){  //if a date parse exception did not occur
-                        if(untilStart<0 && untilStart + duration >0){
-                            if(x == 1){
-                                counter++;
-                                if(counter == previous){
-                                    nameArr[previous] = name;
-                                    startArr[previous] = startDay;
-                                    endArr[previous] = endDay;
-                                    if(duration + untilStart > 33){
-                                        return 483.9978;        //return bar that extends entire length of chart
-                                    }
-                                    return dispDuration + dispTilStart;
+                //If parse exception did not occur
+                if(start.compareTo(randomDay) != 0 && end.compareTo(randomDay) != 0){
+
+                    //if the start is in the past, but the due date is in the future
+                    if(untilStart<0 && untilStart + duration >0){
+
+                        //return the duration
+                        if(x == 1){
+                            counter++;
+                            if(counter == previous){
+                                nameArr[previous] = name;
+                                startArr[previous] = startDay;
+                                endArr[previous] = endDay;
+                                if(duration + untilStart > 33){
+                                    return 483.9978;        //return bar that extends entire length of chart
                                 }
-                            }
-                            else{
-                                counter++;
-                                if(counter == previous){
-                                    nameArr[previous] = name;
-                                    startArr[previous] = startDay;
-                                    endArr[previous] = endDay;
-                                    return 0;
-                                }
+                                return dispDuration + dispTilStart;
                             }
                         }
-                        else if(untilStart > 0){
-                            if(x == 1){
-                                counter++;
-                                if(counter == previous){
-                                    nameArr[previous] = name;
-                                    startArr[previous] = startDay;
-                                    endArr[previous] = endDay;
-                                    if(duration + untilStart > 33){
-                                        return 469.3312-dispTilStart;
-                                    }
-                                    return dispDuration;
-                                }
-                            }
-                            else{
-                                counter++;
-                                if(counter == previous){
-                                    nameArr[previous] = name;
-                                    startArr[previous] = startDay;
-                                    endArr[previous] = endDay;
-                                    return dispTilStart + 14.6666;
-                                }
+                        //return the displacement from vertical axis
+                        else{
+                            counter++;
+                            if(counter == previous){
+                                nameArr[previous] = name;
+                                startArr[previous] = startDay;
+                                endArr[previous] = endDay;
+                                return 0;
                             }
                         }
-                        else if(untilStart == 0){
-                            if(x == 1){
-                                counter++;
-                                if(counter == previous){
-                                    nameArr[previous] = name;
-                                    startArr[previous] = startDay;
-                                    endArr[previous] = endDay;
-                                    if(duration > 33){
-                                        return 483.9978;
-                                    }
-                                    return dispDuration;
+                    }
+
+                    //if the start is in the future
+                    else if(untilStart > 0){
+
+                        //return the duration
+                        if(x == 1){
+                            counter++;
+                            if(counter == previous){
+                                nameArr[previous] = name;
+                                startArr[previous] = startDay;
+                                endArr[previous] = endDay;
+                                if(duration + untilStart > 33){
+                                    return 469.3312-dispTilStart;  //format to fit the gantt chart
                                 }
-                            }
-                            else{
-                                counter++;
-                                if(counter == previous){
-                                    nameArr[previous] = name;
-                                    startArr[previous] = startDay;
-                                    endArr[previous] = endDay;
-                                    return dispTilStart;
-                                }
+                                return dispDuration;
                             }
                         }
+
+                        //return the displacement form the vertical axis
+                        else{
+                            counter++;
+                            if(counter == previous){
+                                nameArr[previous] = name;
+                                startArr[previous] = startDay;
+                                endArr[previous] = endDay;
+                                return dispTilStart + 14.6666;
+                            }
+                        }
+                    }
+
+                    //if the start is today
+                    else if(untilStart == 0){
+
+                        //return the duration
+                        if(x == 1){
+                            counter++;
+                            if(counter == previous){
+                                nameArr[previous] = name;
+                                startArr[previous] = startDay;
+                                endArr[previous] = endDay;
+                                if(duration > 33){
+                                    return 483.9978;  //format to fit the gantt chart
+                                }
+                                return dispDuration;
+                            }
+                        }
+
+                        //return the displacement from the vertical axis
+                        else{
+                            counter++;
+                            if(counter == previous){
+                                nameArr[previous] = name;
+                                startArr[previous] = startDay;
+                                endArr[previous] = endDay;
+                                return dispTilStart;
+                            }
+                        }
+                    }
                 }
             }
-            return 0;
+            return 0;   //arbitrary return value
     }
 }
