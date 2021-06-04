@@ -484,6 +484,7 @@ public class SceneController {
      * 
      * @author - Kris Vuong
      * @param ActionEvent event
+     * @throws IOException
      */
     public void assignmentDuration(ActionEvent event) throws IOException {
         //Reset error or success messages
@@ -533,8 +534,14 @@ public class SceneController {
         }
     }
 
-    ////////////
-    //  ADD DOCSTIRNG   ///////
+    /* 
+     * Parses a String value to a Date type
+     * 
+     * @author - Kris Vuong
+     * @param ActionEvent event
+     * @throws - IOException
+     * @return - Date in yyyy-MM-dd format
+     */
     private Date SDF1(String strDate){
         SimpleDateFormat simple = new SimpleDateFormat ("yyyy-MM-dd");
         Date date = new Date();
@@ -547,6 +554,14 @@ public class SceneController {
         return date;
     }
 
+    /* 
+     * Parses a String value to a Date type
+     * 
+     * @author - Kris Vuong
+     * @param ActionEvent event
+     * @throws - IOException
+     * @return - Date in dd-MM-yyyy format
+     */
     private Date SDF2(String strDate) throws ParseException{
         SimpleDateFormat simple = new SimpleDateFormat ("dd-MM-yyyy");
         Date date = new Date();
@@ -586,6 +601,7 @@ public class SceneController {
      * Calculates the duration of the assignment in days (in option 2)
      * 
      * @author - Kris Vuong
+     * @return - int containing the duration of the assigment in days
      */
     private int calculateDuration(Date endDate, Date startDate){
         long daysDuration = (endDate.getTime() - startDate.getTime())/86400000;  //.getTime() gives milliseconds since epoch (divide to get # of days)
@@ -597,6 +613,7 @@ public class SceneController {
      * Calculates the number of days until the assignment begins (in option 2)
      * 
      * @author - Kris Vuong
+     * @return - int containing the number of days until the assignment begins (negative int if assignment already started)
      */
     private int calculateTilToday (Date startDate){
         Date today = new Date();  //get present date
@@ -606,7 +623,7 @@ public class SceneController {
     }
 
     /* 
-     * Prints error message for invalid start/end date(in option 2)
+     * Sets error message for invalid start/end date (in option 2)
      * 
      * @author - Kris Vuong
      */
@@ -617,7 +634,7 @@ public class SceneController {
     }
 
     /* 
-     * Prints error message for invalid end date (in option 2)
+     * Sets error message for invalid end date (in option 2)
      * 
      * @author - Kris Vuong
      */
@@ -648,13 +665,18 @@ public class SceneController {
         assign1.setTime("23:59");
         FileHandler.writeToCSV(assign1);
     }
-
-    //one day = 14.666666666666667 pixels 
     
-    String[] nameArr = new String[14];
+    //Assignment info arrays needed by multiple methods
+    String[] nameArr = new String[14];  //allocation = number of assignments the gantt chart can display at once
     String[] startArr = new String[14];
     String[] endArr = new String[14];
 
+    /* 
+     * Sets the width of each bar in the Gantt chart
+     * 
+     * @author - Kris Vuong
+     * @throws IOException, ParseException
+     */
     public void loadBars() throws IOException, ParseException{
         setAxisDates();
 
@@ -696,19 +718,13 @@ public class SceneController {
 
         rectangle13.setWidth(createBars(1,13));
         rectangle13.setX(createBars(2,13));
-
-        /*
-        for (String x : nameArr){
-            System.out.println(x);
-        }
-        for (String x : startArr){
-            System.out.println(x);
-        }
-        for (String x : endArr){
-            System.out.println(x);
-        }*/
     }
     
+    /* 
+     * Sets the dates of the month along the bottom axis
+     * 
+     * @author - Kris Vuong
+     */
     private void setAxisDates(){
         Calendar today = Calendar.getInstance();
         SimpleDateFormat dateOfMonth = new SimpleDateFormat("dd");
@@ -764,7 +780,12 @@ public class SceneController {
         month2.setText(monthOfYear.format(today.getTime()));
     }
 
-
+    /* 
+     * Displays assignment name, start date and end date when mouse hovers corresponding bar on Gantt chart
+     * 
+     * @author - Kris Vuong
+     * @param MouseEvent event
+     */
     public void showText1(MouseEvent event){
         ganttName.setText(nameArr[4]);
         ganttStart.setText(startArr[4]);
@@ -830,7 +851,16 @@ public class SceneController {
         ganttStart.setText(startArr[13]);
         ganttEnd.setText(endArr[13]);
     }
-    //GANTT CHARTTT
+
+    /* 
+     * Finds bar pixel length and x-position for each valid assigment to be displayed on the Gantt chart
+     * 
+     * @author - Kris Vuong
+     * @param x - the pixel length is returned when x==1, and the x-position is returned for any other int
+     * @param previous - the chronological order of the previous valid assignment to be displayed on the gantt chart (first assignment is 1, second assignment is 2...)
+     * @throws IOException, ParseException
+     * @return - double value of the bar pixel length OR the bar x-position
+     */
     public double createBars(int x, int previous) throws IOException, ParseException{
         Scanner reader = new Scanner(new File(".\\assignment.csv"));
          
@@ -937,37 +967,8 @@ public class SceneController {
                                 }
                             }
                         }
-                    /*
-                    System.out.println("Name: " + name);
-                    System.out.println("start: " + startDay);
-                    System.out.println("end: " + endDay);
-                    System.out.println("Duration: " + calculateDuration(end, start));
-                    System.out.println("Until Today: " + calculateTilToday(start));
-                    */
                 }
             }
             return 0;
     }
-
-    //private void 
-            ////CHECK DURATION (IF ASSIGNMENT IS OVER) BEFORE SENDING TO GANTT CHART
-
-
-
-    //Gant Chart Functions
-    /*private Button weekslb(String text) {
-        Button button = new Button();
-        Label labell = new Label(text);
-        labell.setRotate(-90);
-        button.setGraphic(new Group(label));
-
-        button.setStyle(
-            "-fx-base: white; " +
-            "-fx-font-size: 12px; " 
-        );
-        return button;
-    } */
-
 }
-
-
