@@ -32,7 +32,6 @@
                </font>
             </Button>
          </children></Pane>
-      <Pane prefHeight="410.0" prefWidth="15.0" style="-fx-background-color: #2c3338;" />
       <Label fx:id="display" />
       <Text fx:id="text" fill="#ffffffd1" layoutX="33.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RemindMe" wrappingWidth="245.2808837890625">
          <font>
