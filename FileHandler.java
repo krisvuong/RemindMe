@@ -219,7 +219,7 @@ public class FileHandler {
 			if ( file.exists() ) {				
 				fopen = new FileReader(pathFileName);
 				opened = new BufferedReader(fopen);
-				int counter = 0;
+	//			int counter = 0;
 				opened.readLine();
 				while ((line = opened.readLine()) != null) {
 		
@@ -278,7 +278,7 @@ public class FileHandler {
 			if ( file.exists() ) {
 				fopen = new FileReader(pathFileName);
 				opened = new BufferedReader(fopen);
-				int counter = 0;
+		//		int counter = 0;
 				opened.readLine();
 				while ((line = opened.readLine()) != null) {
 	

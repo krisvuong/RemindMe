@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -27,36 +29,27 @@ public class allRemindersFile {
     public void chartMaker() {
         try {
             JFrame reminderFrame = new JFrame();
-            // reads the reminder.csv file
-            BufferedReader reader = new BufferedReader(new FileReader(new File(".\\reminder.csv")));
-            List<String[]> elements = new ArrayList<String[]>();
-            String line = null;
-            // while the csv has a line
-            while ((line = reader.readLine()) != null) {
-                // stores all the values of the csv file in an array list called "elements".
-                // Useful to use an array list, instead of array
-                // because an array list doesn't have defined index value, so there won't be an
-                // "index out of bound" exception if the user
-                // adds more rows to the csv file
-                String[] splitted = line.split(",");
-                elements.add(splitted);
-            }
 
-            reader.close();
+            List<Reminder> reminderList = FileHandler.readReminder();
             // initialize the colums in the table.
             String[] columNames = new String[] { "Name", "Start Date", "End Date", "Time" };
             // initialize 2 dimensional array object, for the JFrameTable. The size of
             // elements array list would be 4 in this case.
-            Object[][] userInputs = new Object[elements.size()][4];
+            Object[][] userInputs = new Object[reminderList.size()][4];
 
             // populate the userInputs 2D array object using the elements array list
             // the value of "i", is going the row value, and the second dimension is going
             // to affect the column value.
-            for (int i = 0; i < elements.size(); i++) {
-                userInputs[i][0] = elements.get(i)[0];
-                userInputs[i][1] = elements.get(i)[1];
-                userInputs[i][2] = elements.get(i)[2];
-                userInputs[i][3] = elements.get(i)[3];
+            int i = 0;
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            for (Reminder reminder : reminderList) {
+                userInputs[i][0] = reminder.getName();
+                Date startDate = reminder.getStartDate().getTime();
+                Date endDate = reminder.getEndDate().getTime();
+                userInputs[i][1] = df.format(startDate);
+                userInputs[i][2] = df.format(endDate);
+                userInputs[i][3] = reminder.getTime();
+                i++;
             }
             // initialize the swing table
             JTable table = new JTable(userInputs, columNames);

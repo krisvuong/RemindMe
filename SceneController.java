@@ -36,6 +36,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.List;
 
 public class SceneController {
 
@@ -1002,21 +1003,21 @@ public class SceneController {
      * @return - double value of the bar pixel length OR the bar x-position
      */
     public double createBars(int x, int previous) throws IOException, ParseException {
-        String fileName = ".\\assignment.csv";
-        Scanner reader = new Scanner(new File(fileName)); // scan through assignments file
+    //    String fileName = ".\\assignment.csv";
+    //    Scanner reader = new Scanner(new File(fileName)); // scan through assignments file
 
         // Records number of assignments displayed on the gantt chart (excludles invalid
         // assignments, ex. due date has already passed)
         int counter = 1;
 
+        List<Assignment> assignList = FileHandler.readAssignment(); 
+
         // Reads each row until end of file
-        while (reader.hasNext()) {
+
+        for (Assignment assignment : assignList) {
             // Declare variables
-            String line = reader.next(); // store current line of text as a String
-            line = line.replaceAll("\\s+","");
+
             String name = "";
-            String startDay = "";
-            String endDay = "";
             int duration; // number of days duration
             double dispDuration; // scaled to number of pixels
             int untilStart; // number of days until start
@@ -1025,29 +1026,28 @@ public class SceneController {
                                                  // ignored)
 
             // Find indices of delimiters (comma)
-            int firstComma = line.indexOf(',', 0);
-            int secondComma = line.indexOf(',', firstComma + 1);
-            int thirdComma = line.indexOf(',', secondComma + 1);
 
-            // Substring the name, start and end of each assignment
-            name = line.substring(0, firstComma);
-            startDay = line.substring(firstComma + 1, secondComma);
-            endDay = line.substring(secondComma + 1, thirdComma);
 
-            // Parse string dates to Date type
-            Date start = SDF2(startDay);
-            Date end = SDF2(endDay);
+         name = assignment.getName();
+         Calendar start = assignment.getStartDate();
+         Calendar end = assignment.getEndDate();  
+
+
 
             // Find days duration of each assignment
-            duration = calculateDuration(end, start);
+            duration = calculateDuration(end.getTime(), start.getTime());
             dispDuration = duration * 14.6666; // days --> pixles (to scale)
 
             // Find days until start of each assignment
-            untilStart = calculateTilToday(start);
+            untilStart = calculateTilToday(start.getTime());
             dispTilStart = untilStart * 14.6666; // days --> pixles (to scale)
 
             // If parse exception did not occur
-            if (start.compareTo(randomDay) != 0 && end.compareTo(randomDay) != 0) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String startStr = sdf.format(start.getTime());
+            String endStr = sdf.format(end.getTime());
+            String randomDayStr = sdf.format(randomDay.getTime());
+            if (startStr.compareTo(randomDayStr) != 0 && endStr.compareTo(randomDayStr) != 0) {
 
                 // if the start is in the past, but the due date is in the future
                 if (untilStart < 0 && untilStart + duration > 0) {
@@ -1057,8 +1057,8 @@ public class SceneController {
                         counter++;
                         if (counter == previous) {
                             nameArr[previous] = name;
-                            startArr[previous] = startDay;
-                            endArr[previous] = endDay;
+                            startArr[previous] = startStr;
+                            endArr[previous] = endStr;
                             if (duration + untilStart > 33) {
                                 return 483.9978; // return bar that extends entire length of chart
                             }
@@ -1070,8 +1070,8 @@ public class SceneController {
                         counter++;
                         if (counter == previous) {
                             nameArr[previous] = name;
-                            startArr[previous] = startDay;
-                            endArr[previous] = endDay;
+                            startArr[previous] = startStr;
+                            endArr[previous] = endStr;
                             return 0;
                         }
                     }
@@ -1085,8 +1085,8 @@ public class SceneController {
                         counter++;
                         if (counter == previous) {
                             nameArr[previous] = name;
-                            startArr[previous] = startDay;
-                            endArr[previous] = endDay;
+                            startArr[previous] = startStr;
+                            endArr[previous] = endStr;
                             if (duration + untilStart > 33) {
                                 return 469.3312 - dispTilStart; // format to fit the gantt chart
                             }
@@ -1099,8 +1099,8 @@ public class SceneController {
                         counter++;
                         if (counter == previous) {
                             nameArr[previous] = name;
-                            startArr[previous] = startDay;
-                            endArr[previous] = endDay;
+                            startArr[previous] = startStr;
+                            endArr[previous] = endStr;
                             return dispTilStart + 14.6666;
                         }
                     }
@@ -1114,8 +1114,8 @@ public class SceneController {
                         counter++;
                         if (counter == previous) {
                             nameArr[previous] = name;
-                            startArr[previous] = startDay;
-                            endArr[previous] = endDay;
+                            startArr[previous] = startStr;
+                            endArr[previous] = endStr;
                             if (duration > 33) {
                                 return 483.9978; // format to fit the gantt chart
                             }
@@ -1128,8 +1128,8 @@ public class SceneController {
                         counter++;
                         if (counter == previous) {
                             nameArr[previous] = name;
-                            startArr[previous] = startDay;
-                            endArr[previous] = endDay;
+                            startArr[previous] = startStr;
+                            endArr[previous] = endStr;
                             return dispTilStart;
                         }
                     }
