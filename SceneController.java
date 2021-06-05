@@ -582,17 +582,6 @@ public class SceneController {
         }
     }
 
-    /**
-     * @description: Changes background color when a color from color picker is
-     *               selected
-     * @author: Michelle Lau
-     * @param: event
-     */
-    public void backgroundColor(ActionEvent event) {
-        Color colorcolor = color.getValue();
-        scenePane.setBackground(new Background(new BackgroundFill(colorcolor, null, null)));
-    }
-
     /*
      * Handles new assignment option from main menu (option 2)
      * 
