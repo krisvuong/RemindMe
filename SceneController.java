@@ -1010,10 +1010,14 @@ public class SceneController {
         // assignments, ex. due date has already passed)
         int counter = 1;
 
+        /*
+        @author Michelle Chan
+        * Calls FileHandler to read the assignment
+        */
+
         List<Assignment> assignList = FileHandler.readAssignment(); 
 
-        // Reads each row until end of file
-
+        // Reads each row until end of list
         for (Assignment assignment : assignList) {
             // Declare variables
 
@@ -1025,14 +1029,11 @@ public class SceneController {
             Date randomDay = SDF2("01-01-1980"); // arbitrary date (used for checking for errors -- these cases are
                                                  // ignored)
 
-            // Find indices of delimiters (comma)
 
-
-         name = assignment.getName();
-         Calendar start = assignment.getStartDate();
-         Calendar end = assignment.getEndDate();  
-
-
+            // Assigns list elements to local variables
+            name = assignment.getName();
+            Calendar start = assignment.getStartDate();
+            Calendar end = assignment.getEndDate();  
 
             // Find days duration of each assignment
             duration = calculateDuration(end.getTime(), start.getTime());
@@ -1042,7 +1043,7 @@ public class SceneController {
             untilStart = calculateTilToday(start.getTime());
             dispTilStart = untilStart * 14.6666; // days --> pixles (to scale)
 
-            // If parse exception did not occur
+            // Formats the date calendar to assign to the start, end and random days
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             String startStr = sdf.format(start.getTime());
             String endStr = sdf.format(end.getTime());

@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +26,11 @@ public class allRemindersFile {
         try {
             JFrame reminderFrame = new JFrame();
 
+            /*
+            * @author Michelle Chan
+            * Reads reminders from FileHandler
+            */
+
             List<Reminder> reminderList = FileHandler.readReminder();
             // initialize the colums in the table.
             String[] columNames = new String[] { "Name", "Start Date", "End Date", "Time" };
@@ -37,7 +38,7 @@ public class allRemindersFile {
             // elements array list would be 4 in this case.
             Object[][] userInputs = new Object[reminderList.size()][4];
 
-            // populate the userInputs 2D array object using the elements array list
+            // populate the userInputs 2D array object using the reminder list from the FileHandler
             // the value of "i", is going the row value, and the second dimension is going
             // to affect the column value.
             int i = 0;
