@@ -6,14 +6,21 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="600.0" style="-fx-background-color: #2c2f33;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneController">
    <children>
+      <Pane layoutX="21.0" layoutY="148.0" prefHeight="8.0" prefWidth="200.0" style="-fx-background-color: #23272a;" />
+      <Pane layoutX="5.0" layoutY="163.0" prefHeight="31.0" prefWidth="102.0" style="-fx-background-color: #23272a;" />
+      <Pane layoutX="-3.0" layoutY="200.0" prefHeight="8.0" prefWidth="112.0" style="-fx-background-color: #23272a;" />
+      <Pane layoutY="218.0" prefHeight="20.0" prefWidth="112.0" style="-fx-background-color: #23272a;" />
+      <Pane layoutY="244.0" prefHeight="2.0" prefWidth="200.0" style="-fx-background-color: #23272a;" />
+      <Pane layoutX="-39.0" layoutY="256.0" prefHeight="66.0" prefWidth="200.0" style="-fx-background-color: #23272a;" />
       <Button layoutX="171.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchScene4" prefHeight="30.0" prefWidth="96.0" style="-fx-background-color: #7289da;" text="Return" />
-      <Label fx:id="titleee" layoutX="78.0" layoutY="14.0" text="YOUR GANTT CHART FOR THIS MONTH" textFill="#a8bedf">
+      <Label fx:id="titleee" layoutX="218.0" layoutY="14.0" text="GANTT CHART" textFill="#a8bedf">
          <font>
             <Font name="Consolas Bold" size="26.0" />
          </font>
@@ -97,5 +104,8 @@
             <Font size="15.0" />
          </font>
       </Text>
+      <Pane layoutX="-1.0" layoutY="330.0" prefHeight="17.0" prefWidth="44.0" style="-fx-background-color: #23272a;" />
+      <Pane layoutX="596.0" layoutY="-1.0" prefHeight="410.0" prefWidth="5.0" style="-fx-background-color: #41454a;" />
+      <Pane layoutX="-1.0" layoutY="100.0" prefHeight="39.0" prefWidth="44.0" style="-fx-background-color: #23272a;" />
    </children>
 </AnchorPane>
